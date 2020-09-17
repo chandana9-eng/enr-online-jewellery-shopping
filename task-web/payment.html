@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+div {
+  left: 350px;
+} 
+</style>
+<script src="https://www.paypal.com/sdk/js?client-id=sb"></script>
+
+</head>
+<body>
+<table align="center">
+<tr>
+<td>
+<h3>Order Place</h3>
+
+<div class="container">
+  <form action="/action_page.php">
+    <label for="fname">First Name</label>
+    <input type="text" id="fname" name="firstname" placeholder="Your name..">
+
+    <label for="lname">Last Name</label>
+    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+
+    <label for="pnumber">Phone Number</label><br>
+    <input type="phone" id="pnumber" name="phonenumber" placeholder="phone number..."><br>
+
+    <label for="country">Country</label>
+    <select id="country" name="country">
+      <option value="australia">India</option>
+      <option value="canada">Canada</option>
+      <option value="usa">USA</option>
+     <option value="usa">UK</option>
+    </select>
+
+    
+ 
+    <label for="street">street</label>
+    <input type="text" id="street" name="street" placeholder="street">
+ 
+    <label for="city">city</label>
+    <input type="text" id="city" name="city" placeholder="city">
+
+    <label for="state">State</label>
+    <input type="text" id="state" name="state" placeholder="state">
+
+    <label for="pincode">Pincode</label>
+    <input type="text" id="pincode" name="pincode" placeholder="pincode">
+    </form>
+  
+
+</div>
+</td>
+</tr>
+</table>
+<center>
+<div id = "paypal1">
+<script>paypal.Buttons({
+    createOrder: function(data, actions) {
+      // This function sets up the details of the transaction, including the amount and line item details.
+      return actions.order.create({
+        purchase_units: [{
+          amount: {
+            value: '0.01'
+          }
+        }]
+      });
+    },
+    onApprove: function(data, actions) {
+      // This function captures the funds from the transaction.
+      return actions.order.capture().then(function(details) {
+        // This function shows a transaction success message to your buyer.
+        alert('Transaction completed by ' + details.payer.name.given_name);
+      });
+    }
+  }).render('body');</script>
+</div>
+</center>
+</body>
+</html>
